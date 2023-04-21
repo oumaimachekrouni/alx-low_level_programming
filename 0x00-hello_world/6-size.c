@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 /**
  * main - A C program that prints the size of various types.
  * Return: Always 0 (Success)
