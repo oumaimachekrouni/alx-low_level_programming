@@ -1,4 +1,6 @@
 #include "main.h"
+#include <stdlib.h>
+
 /**
  * *_memset - fils memory with a constant byte.
  * @s: pointer to put the constant
@@ -18,19 +20,21 @@ char *_memset(char *s, char b, unsigned int n)
  * *_calloc - allocates memory for an array, using malloc
  * @nmemb: array length
  * @size: size of each element
- * Return: pointer
+ * Return: pointer to the allocated memory
  */
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	void *m;
+	void *ptr;
 
-	if (size == 0 || nmemb == 0)
-		return (NULL);
-	m = malloc(size * nmemb);
-
-	if (m == 0)
+	if (nmemb == 0 || size == 0)
 		return (NULL);
 
-	_memset(m, 0, sizeof(int) * nmemb);
-	return (m);
+	ptr = malloc(nmemb * size);
+
+	if (ptr == NULL)
+		return (NULL);
+
+	_memset(ptr, 0, nmemb * size);
+
+	return (ptr);
 }
