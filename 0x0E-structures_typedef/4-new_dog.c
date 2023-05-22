@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "dog.h"
 
 /**
@@ -20,54 +22,66 @@ int _strlen(const char *str)
  * @dest: copy string to here
  * Return: @dest
  */
-char *_strcopy(char *dest, char *src)
+char *_strcopy(char *dest, const char *src)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; src[i]; i++)
+	while (src[i])
+	{
 		dest[i] = src[i];
+		i++;
+	}
 	dest[i] = '\0';
 
 	return (dest);
 }
 /**
- * new_dog - a function that creates a new dog
+ * new_dog - creates a new dog
  *
- * @name: name of dog
- * @age: age of dog
- * @owner: dog owner
- * Return: struct pointer dog
- * NULL if function fails
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
+ * Return: pointer to the new dog, or NULL on failure
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *dog;
+	int nameLen, ownerLen;
 
-	/* if name and owner are empty and age is less than zero return null*/
-	if (!name || age < 0 || !owner)
+	/* Check if name and owner are empty*/
+	if (name == NULL || owner == NULL)
 		return (NULL);
 
-	dog = (dog_t *) malloc(sizeof(dog_t));
+	/* Calculate the lengths of name and owner */
+	nameLen = strlen(name);
+	ownerLen = strlen(owner);
+
+	/* Allocate memory for the dog */
+	dog = malloc(sizeof(dog_t));
 	if (dog == NULL)
 		return (NULL);
-	dog->name = malloc(sizeof(char) * (_strlen(owner) + 1));
-	if ((*dog).name == NULL)
+
+	/* Allocate memory for the name and copy it */
+	dog->name = malloc(sizeof(char) * (nameLen + 1));
+	if (dog->name == NULL)
 	{
 		free(dog);
 		return (NULL);
 	}
+	strcpy(dog->name, name);
 
-	dog->owner = malloc(sizeof(char) * (_strlen(owner) + 1));
-	if ((*dog).owner == NULL)
+	/* Allocate memory for the owner and copy it */
+	dog->owner = malloc(sizeof(char) * (ownerLen + 1));
+	if (dog->owner == NULL)
 	{
 		free(dog->name);
 		free(dog);
 		return (NULL);
 	}
+	strcpy(dog->owner, owner);
 
-	dog->name = _strcopy(dog->name, name);
+	/* Set the age */
 	dog->age = age;
-	dog->owner = _strcopy(dog->owner, owner);
 
 	return (dog);
 }
