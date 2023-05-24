@@ -35,6 +35,15 @@ int main(int argc, char **argv)
 		return (100);
 	}
 
-	printf("%d\n", op_func(a, b));
+	if (op_func != NULL) /* Additional check */
+	{
+		printf("%d\n", op_func(a, b));
+	}
+	else
+	{
+		printf("Error\n");
+		return (99);
+	}
+
 	return (0);
 }
