@@ -22,9 +22,9 @@ int main(int argc, char **argv)
 	b = atoi(argv[3]);
 
 	op_func = get_op_func(argv[2]);
-	if (!op_func)
+	if (!op_func || argv[2][1] != '\0')
 	{
-		printf("ERROR\n");
+		printf("Error\n");
 		return (99);
 	}
 
