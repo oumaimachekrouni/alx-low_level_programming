@@ -6,11 +6,12 @@
  * main - Entry point
  * @argc: argument count
  * @argv: argument vector
- * Return: always 0.
+ * Return: Always 0.
  */
 int main(int argc, char **argv)
 {
-	int (*op_func)(int, int), a, b;
+	int a, b;
+	int (*op_func)(int, int);
 
 	if (argc != 4)
 	{
@@ -22,7 +23,7 @@ int main(int argc, char **argv)
 	b = atoi(argv[3]);
 
 	op_func = get_op_func(argv[2]);
-	if (!op_func || argv[2][1] != '\0')
+	if (op_func == NULL || argv[2][1] != '\0')
 	{
 		printf("Error\n");
 		return (99);
